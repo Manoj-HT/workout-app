@@ -20,7 +20,7 @@
         </div>
         <div class="workout-section_start-button" id="start_button-container">
             <div id="session-loader" class="workout-section_session-loader"></div>
-            <button onclick="workoutHandler()" id="workout-handler" type="button">START</button>
+            <button onclick="workoutHandler()" id="workout-handler" type="button" disabled >START</button>
         </div>
     </div>
     <div class="workout-section_exercise-wrapper">
@@ -42,7 +42,7 @@
             <ul class="exercise-list" id="stretches-list"></ul>
         </div>
         <div class="workout-section_exerise-data">
-            <p id="exercise-name"></p>
+            <h1 id="exercise-name" class="exercise-list_main-heading" ></h1>
             <div class="key-value">
                 <label>Type</label>
                 <span id="type-display"></span>
@@ -69,8 +69,8 @@
                 <label for="time">Time</label>
                 <input type="text" name="time" id="time-input" value="" />
             </div>
-            <div>
-                <button type="button">REST</button>
+            <div class="rest-button" >
+                <button type="button" onclick="" >REST</button>
                 <span>Mind your breathing form.</span>
             </div>
             <div id="rest-time" class="rest-time">

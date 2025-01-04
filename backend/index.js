@@ -40,6 +40,11 @@ app.get('/workout-script', getJS('workout'))
 app.get('/workout-template', getHTML('workout'))
 app.get('/workout-css', getCSS('workout'))
 
+// Calorie intake section
+app.get('/calorie-intake-script', getJS('calorie_intake'))
+app.get('/calorie-intake-template', getHTML('calorie_intake'))
+app.get('calorie-intake-css', getCSS('calorie_intake'))
+
 // Overview section
 app.get('/overview-script', getJS('overview'))
 app.get('/overview-template', getHTML('overview'))
