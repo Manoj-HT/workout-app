@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-size: 20px;
+    color: aqua;
+    border-radius: 0.5rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: aqua transparent;
+
+    // Chrome, Edge, Safari
+    &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px; // also styles horizontal scrollbar
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: aqua;
+        border-radius: 0; // square edges
+        border: 2px solid transparent; // simulates margin
+        background-clip: content-box; // keeps aqua inside
+    }
+}
+
+body {
+    background-color: black;
+}

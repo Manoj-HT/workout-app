@@ -1,1 +1,0 @@
-alert("hello! add exercise script loaded")
