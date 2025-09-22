@@ -1,52 +1,55 @@
-<!-- Day config -->
-<div class="day-config">
-  <button (click)="enableModal('dayType')">{{dayType()}}</button>
-  <button (click)="enableModal('place')">{{place()}}</button>
-</div>
 <!-- Date -->
-<div class="time-duration">
-  <div id="pctDone"></div>
-  {{startDate}}
-</div>
+<config-header-component />
+<router-outlet />
+<config-modal />
+
 <!-- Current exercise -->
-<div class="on-going">
+<!-- <div class="on-going">
+  <p>Current exercises : {{selectedExerciseList().length}}</p>
+  @if (selectedExerciseList().length !== 0) {
+  <hr>
+  }
+  @for (exercise of selectedExerciseList(); track $index) {
   <div class="exercise parent">
     <p class="exercise-name div1">Overhead press</p>
     <p class="set-no div2">Set 1</p>
     <p class="total-weight div3">12kg</p>
     <p class="rep-count div4">15reps</p>
-    <button class="eccentric-control div5">EC=0%</button>
-    <button class="rest-time-control div6">RT=0%</button>
-    <button class="rest-breath-control div7">RB=0%</button>
+    <button type="button" class="eccentric-control div5">EC=0%</button>
+    <button type="button" class="rest-breath-control div6">RB=0%</button>
   </div>
+  }
+  @if (selectedExerciseList().length !== 0) {
   <div class="rest-time">
-    <div class="pct-sec-left"></div> 90 sec
+    <div class="pct-sec-left" #restTimepctLoader></div>
+    {{selectedExerciseList().at(-1)?.rest}} sec
   </div>
-</div>
+  }
+</div> -->
 <!-- Exercise config -->
-<div class="exercise-config">
-  <button>Done</button>
-  <button>Set Complete</button>
-</div>
+<!-- <div class="exercise-config">
+  <button type="button">Done</button>
+  <button type="button" (click)="completeSet()">Set Complete</button>
+</div> -->
 <!-- Exercise complete -->
-<div class="exercise-complete">
+<!-- <div class="exercise-complete">
   Rest 150sec
-</div>
+</div> -->
 <!-- Exercise list -->
-<div class="exercise-list">
+<!-- <div class="exercise-list">
   <input type="text" placeholder="search">
-  <ul (click)="selectExercise($event)" >
+  <ul (click)="selectExercise($event)">
     @for (exercise of exerciseList(); track $index) {
-    <li><button>{{exercise}}</button></li>
+    <li><button type="button">{{exercise}}</button></li>
     }
   </ul>
-</div>
+</div> -->
 <!-- Session complete -->
-<button class="session-complete" >Session complete</button>
+<!-- <button type="button" class="session-complete">Session complete</button> -->
 
 
 <!-- Modals -->
-@if(modal() === 'dayType'){
+<!-- @if(modal() === 'dayType'){
 <div [class]="`modal ${modalAnimation()}`">
   <ul class="day-types" (click)="selectDay($event)">
     <li><button>Full body</button></li>
@@ -56,6 +59,9 @@
     <li><button>Cancel</button></li>
   </ul>
 </div>
+}
+@if(modal() !== undefined){
+<div class="bg-blur"></div>
 }
 @if(modal() === 'place'){
 <div [class]="`modal ${modalAnimation()}`">
@@ -67,18 +73,38 @@
 </div>
 }
 @if (modal() === 'exerciseSelector') {
-  <div [class]="`modal ${modalAnimation()} ex-config-modal`" >
-    <p class="title" >{{selectedExercise().title}}</p>
-    <div class="config-inputs" [formGroup]="exerciseConfigForm" >
-      <input type="text" placeholder="Rest time" formControlName="rest" >
-      <input type="text" placeholder="Complete time" formControlName="complete" >
-      <input type="text" placeholder="Total sets" formControlName="sets" >
-      <input type="text" placeholder="Weights/Time" formControlName="weights" >
-      <input type="text" placeholder="Reps" formControlName="reps" >
-    </div>
-    <div class="exercise-configuration">
-      <button class="cancel" (click)="closeConfiguration()" >Cancel</button>
-    <button class="done" (click)="completeConfiguration()" >Done</button>
-    </div>
+<div [class]="`modal ${modalAnimation()} ex-config-modal`">
+  <p class="title">{{selectedExercise()}}</p>
+  <div class="config-inputs" [formGroup]="exerciseConfigForm">
+    <input type="text" placeholder="Rest time" formControlName="rest">
+    <input type="text" placeholder="Complete time" formControlName="complete">
+    <input type="text" placeholder="Total sets" formControlName="sets">
+    <input type="text" placeholder="Weights/Time" formControlName="weights">
+    <input type="text" placeholder="Reps" formControlName="reps">
   </div>
+  <div class="exercise-configuration">
+    <button class="cancel" (click)="closeConfiguration()">Cancel</button>
+    <button class="done" (click)="completeConfiguration()">Done</button>
+  </div>
+</div>
 }
+@if (modal() === 'exerciseType'){
+<div [class]="`modal ${modalAnimation()}`" (click)="selectExerciseType($event)">
+  <ul>
+    <li><button type="button">Warm up</button></li>
+    <li><button type="button">Main</button></li>
+    <li><button type="button">Finisher</button></li>
+    <li><button type="button">Cancel</button></li>
+  </ul>
+</div>
+}
+@if (modal() === 'configSelection'){
+<div [class]="`modal ${modalAnimation()}`">
+  <ul>
+    <li><button type="button" (click)="displayModal('dayType')">{{configType().dayType}}</button></li>
+    <li><button type="button" (click)="displayModal('place')">{{configType().place}}</button></li>
+    <li><button type="button" (click)="displayModal('exerciseType')">{{configType().exerciseSection}}</button></li>
+    <li><button type="button" (click)="closeModal()">Cancel</button></li>
+  </ul>
+</div>
+} -->

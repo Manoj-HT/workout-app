@@ -1,0 +1,35 @@
+@import url('../partials/common.scss');
+
+.config-header {
+    display: flex;
+    margin-top: 0.5rem;
+    padding: 0 0.5rem;
+    gap: 10px;
+
+    .time-duration {
+        border: 2px solid;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        width: 90%;
+        font-size: 90%;
+        #pctDone {
+            // @extend .pct-loader;
+        }
+    }
+
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        width: 10%;
+
+        .stick {
+            border: 2px solid;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+button {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &:active {
+        scale: 0.9;
+    }
+}
+
+ul {
+    list-style: none;
+}
+hr{
+    border: 1px solid;
+}

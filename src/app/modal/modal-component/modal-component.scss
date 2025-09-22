@@ -1,0 +1,56 @@
+.bg-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    border-radius: 0;
+    z-index: 1;
+}
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 2px solid;
+    padding: 0.5rem;
+    translate: -50% -50%;
+    background-color: black;
+    width: max-content;
+    z-index: 2;
+    ul{
+        li{
+            padding: 10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal.open {
+    animation: model-open-animation 0.2s;
+
+    @keyframes model-open-animation {
+        from {
+            scale: 0.95;
+        }
+
+        to {
+            scale: 1;
+        }
+    }
+}
+
+.modal.close {
+    animation: modal-close-animation 0.2s;
+
+    @keyframes modal-close-animation {
+        from {
+            scale: 1;
+        }
+
+        to {
+            scale: 0.95;
+        }
+    }
+}
+

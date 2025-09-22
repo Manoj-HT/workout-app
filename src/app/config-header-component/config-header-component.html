@@ -1,0 +1,11 @@
+<div class="config-header">
+    <div class="time-duration">
+      <div id="pctDone" #sessionCompletepctLoader></div>
+      {{startDate}}
+    </div>
+    <button type="button" class="hamburger-menu" (click)="displayModal()">
+      @for (_ of [1,2,3]; track $index) {
+      <div class="stick"></div>
+      }
+    </button>
+</div>

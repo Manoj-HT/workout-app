@@ -1,0 +1,54 @@
+@if(modal().type){
+<div class="bg-blur"></div>
+<div [class]="`modal ${modal().anim}`">
+    @switch (modal().type) {
+    @case ('dayType') {
+    <ul>
+        <li>Full body</li>
+        <li>Push day</li>
+        <li>Pull day</li>
+        <li>Leg + core day</li>
+        <li>Cancel</li>
+    </ul>
+    }
+    @case ('place') {
+    <ul class="place">
+        <li>Home</li>
+        <li>Gym</li>
+        <li>Cancel</li>
+    </ul>
+
+    }
+    @case ('exerciseSelector') {
+    <p class="title"></p>
+    <div class="config-inputs">
+        <input type="text" placeholder="Rest time" formControlName="rest">
+        <input type="text" placeholder="Complete time" formControlName="complete">
+        <input type="text" placeholder="Total sets" formControlName="sets">
+        <input type="text" placeholder="Weights/Time" formControlName="weights">
+        <input type="text" placeholder="Reps" formControlName="reps">
+    </div>
+    <div class="exercise-configuration">
+        <button class="cancel">Cancel</button>
+        <button class="done">Done</button>
+    </div>
+    }
+    @case ('exerciseType') {
+    <ul>
+        <li>Warm up</li>
+        <li>Main</li>
+        <li>Finisher</li>
+        <li>Cancel</li>
+    </ul>
+    }
+    @case ('configSelection') {
+    <ul>
+        <li (click)="openModal('dayType')" >{{sessionConfig().dayType}}</li>
+        <li (click)="openModal('place')" >{{sessionConfig().place}}</li>
+        <li (click)="openModal('exerciseType')" >{{sessionConfig().exerciseSection}}</li>
+        <li (click)="closeModal()">Cancel</li>
+    </ul>
+    }
+    }
+</div>
+}
