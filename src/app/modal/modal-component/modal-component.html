@@ -1,21 +1,21 @@
 @if(modal().type){
-<div class="bg-blur"></div>
+<div class="bg-blur" (click)="closeModal()"></div>
 <div [class]="`modal ${modal().anim}`">
     @switch (modal().type) {
     @case ('dayType') {
-    <ul>
+    <ul (click)="selectOption($event, 'dayType')">
         <li>Full body</li>
         <li>Push day</li>
         <li>Pull day</li>
         <li>Leg + core day</li>
-        <li>Cancel</li>
+        <li (click)="$event.stopPropagation();closeModal()">Cancel</li>
     </ul>
     }
     @case ('place') {
-    <ul class="place">
+    <ul class="place" (click)="selectOption($event, 'place')">
         <li>Home</li>
         <li>Gym</li>
-        <li>Cancel</li>
+        <li (click)="$event.stopPropagation();closeModal()">Cancel</li>
     </ul>
 
     }
@@ -29,23 +29,32 @@
         <input type="text" placeholder="Reps" formControlName="reps">
     </div>
     <div class="exercise-configuration">
-        <button class="cancel">Cancel</button>
+        <button (click)="closeModal()" class="cancel">Cancel</button>
         <button class="done">Done</button>
     </div>
     }
     @case ('exerciseType') {
-    <ul>
+    <ul (click)="selectOption($event, 'exerciseType')">
         <li>Warm up</li>
         <li>Main</li>
         <li>Finisher</li>
-        <li>Cancel</li>
+        <li (click)="$event.stopPropagation();closeModal()">Cancel</li>
     </ul>
     }
     @case ('configSelection') {
     <ul>
-        <li (click)="openModal('dayType')" >{{sessionConfig().dayType}}</li>
-        <li (click)="openModal('place')" >{{sessionConfig().place}}</li>
-        <li (click)="openModal('exerciseType')" >{{sessionConfig().exerciseSection}}</li>
+        <li (click)="openModal('dayType')">
+            {{sessionConfig().dayType !== 'Select day' ? 'Day: ' : ''}}
+            {{sessionConfig().dayType}}
+        </li>
+        <li (click)="openModal('place')">
+            {{sessionConfig().place !== 'Select place' ? 'Place: ' : ''}}
+            {{sessionConfig().place}}
+        </li>
+        <li (click)="openModal('exerciseType')">
+            {{sessionConfig().exerciseSection !== 'Exercise type' ? 'Type: ' : ''}}
+            {{sessionConfig().exerciseSection}}
+        </li>
         <li (click)="closeModal()">Cancel</li>
     </ul>
     }

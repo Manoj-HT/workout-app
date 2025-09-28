@@ -1,7 +1,14 @@
 <!-- Date -->
-<config-header-component />
-<router-outlet />
-<config-modal />
+<div class="main">
+  <config-header-component (sessionStart)="sessionStart()" />
+  @if (loadPage()) {
+  <div class="page">
+    <router-outlet />
+  </div>
+  }
+  <config-modal />
+</div>
+
 
 <!-- Current exercise -->
 <!-- <div class="on-going">

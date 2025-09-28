@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
-import { WarmupExercises } from './warmup-exercises/warmup-exercises';
 import { CompoundExercises } from './compound-exercises/compound-exercises';
-import { FinisherExercises } from './finisher-exercises/finisher-exercises';
 import { CustomRoute } from './models/routes';
+import { CardioExercises } from './cardio-exercises/cardio-exercises';
 
 const routes: CustomRoute[] = [
     {
         path: 'warm-up',
-        component: WarmupExercises
+        component: CardioExercises
     },
     {
         path: 'compound-exercises',
@@ -15,11 +14,11 @@ const routes: CustomRoute[] = [
     },
     {
         path: 'finishers',
-        component: FinisherExercises
+        component: CardioExercises
     },
     {
         path: '**',
-        redirectTo: 'compound-exercises',
+        redirectTo: 'warm-up',
         pathMatch: "full"
     }
 ]

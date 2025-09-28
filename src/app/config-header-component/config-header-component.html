@@ -1,7 +1,7 @@
 <div class="config-header">
-    <div class="time-duration">
+    <div class="time-duration" (click)="startSession()" hex-box >
       <div id="pctDone" #sessionCompletepctLoader></div>
-      {{startDate}}
+      {{startDate()}}
     </div>
     <button type="button" class="hamburger-menu" (click)="displayModal()">
       @for (_ of [1,2,3]; track $index) {

@@ -9,8 +9,6 @@ export class ModalService {
     type: ModalType | undefined;
     anim: 'open' | 'close'
   }>({ type: undefined, anim: 'close' })
-  private selectedOption = signal<PlaceType | DayType | ExerciseSectionType>(undefined)
-  private modalAnimation = signal<'open' | 'close'>('open')
 
   openModal(modalType: ModalType) {
     this.modal.update((prev) => {
@@ -23,10 +21,6 @@ export class ModalService {
 
   getCurrentModal() {
     return this.modal
-  }
-
-  updateModalOption(option: PlaceType | DayType | ExerciseSectionType) {
-    this.selectedOption.update(() => option)
   }
 
   selectedModalOption<T>() {

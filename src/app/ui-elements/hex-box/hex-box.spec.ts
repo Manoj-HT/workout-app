@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinisherExercises } from './finisher-exercises';
+import { HexBox } from './hex-box';
 
-describe('FinisherExercises', () => {
-  let component: FinisherExercises;
-  let fixture: ComponentFixture<FinisherExercises>;
+describe('HexBox', () => {
+  let component: HexBox;
+  let fixture: ComponentFixture<HexBox>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FinisherExercises]
+      imports: [HexBox]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FinisherExercises);
+    fixture = TestBed.createComponent(HexBox);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
