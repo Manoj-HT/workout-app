@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CompoundExercises } from './compound-exercises/compound-exercises';
 import { CustomRoute } from './models/routes';
 import { CardioExercises } from './cardio-exercises/cardio-exercises';
+import { SessionDetails } from './session-details/session-details';
 
 const routes: CustomRoute[] = [
     {
@@ -17,8 +18,12 @@ const routes: CustomRoute[] = [
         component: CardioExercises
     },
     {
+        path: 'session-details',
+        component: SessionDetails
+    },
+    {
         path: '**',
-        redirectTo: 'warm-up',
+        redirectTo: '',
         pathMatch: "full"
     }
 ]

@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,24 +8,29 @@ export class ModalService {
   private modal = signal<{
     type: ModalType | undefined;
     anim: 'open' | 'close'
-  }>({ type: undefined, anim: 'close' })
+  }>({ type: undefined, anim: 'close' });
 
-  openModal(modalType: ModalType) {
-    this.modal.update((prev) => {
+  public data = signal<CompoundExercise | undefined>(undefined);
+  dataEffect = effect(() => {
+    console.log({ data: this.data() })
+  })
+
+  exerciseId = signal<number | undefined>(undefined)
+
+  openModal(modalType: ModalType, data?: CompoundExercise) {
+    if (data) { this.exerciseId.set(data?.id) }
+    this.modal.update(() => {
       return {
         type: modalType,
         anim: 'open'
       }
-    })
+    });
   }
 
   getCurrentModal() {
     return this.modal
   }
 
-  selectedModalOption<T>() {
-    this.selectedModalOption as T
-  }
 
   closeModal() {
     this.modal.update((prev) => {
@@ -33,9 +38,9 @@ export class ModalService {
         ...prev,
         anim: 'close'
       }
-    })
+    });
     setTimeout(() => {
-      this.modal.update((prev) => ({ ...prev, type: undefined }))
+      this.modal.update((prev) => ({ ...prev, type: undefined }));
     }, 200);
   }
 }

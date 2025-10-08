@@ -1,1 +1,26 @@
-<p>cardio-exercises works!</p>
+<div class="container">
+  <h1 class="title">{{ title() }}</h1>
+  @if (selectedExercise()) {
+    <div class="loading-bar">
+      <div class="progress" #loadingBar></div>
+    </div>
+    <button class="start-exercise-button" (click)="startOrStopExercise()">
+      @if (exerciseInProgress()) {
+        Stop Exercise
+      } @else {
+        Start Exercise
+      }
+    </button>
+  }
+
+  <div class="exercise-list-container">
+    <input type="text" placeholder="Search" class="search-input" (input)="onSearch($event)">
+    <ul class="exercise-list">
+      @for (exercise of filteredExercises(); track exercise.id) {
+        <li (click)="toggleExercise(exercise)" (keydown.enter)="toggleExercise(exercise)" tabindex="0" [class.selected]="selectedExercise()?.id === exercise.id">
+          {{ exercise.name }}
+        </li>
+      }
+    </ul>
+  </div>
+</div>

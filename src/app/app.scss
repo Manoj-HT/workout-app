@@ -1,13 +1,27 @@
-.main{
+.main-base{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: center;
     width: 100vw;
     height: 100vh;
     overflow: auto;
     padding: 0 0.5rem;
 }
+
+.main-before-start{
+    @extend .main-base;
+    justify-content: center;
+}
+
+.main-after-start{
+    app-config-header{
+        margin-bottom: auto;
+    }
+    @extend .main-base;
+    justify-content: flex-end;
+}
+
+
 .page{
     max-height: 100%;
     overflow: auto;

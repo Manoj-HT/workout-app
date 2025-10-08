@@ -1,12 +1,12 @@
 <!-- Date -->
-<div class="main">
-  <config-header-component (sessionStart)="sessionStart()" />
+<div [class]="loadPage() ? 'main-after-start' : 'main-before-start'">
+  <app-config-header (sessionStart)="sessionStart()" />
   @if (loadPage()) {
   <div class="page">
     <router-outlet />
   </div>
   }
-  <config-modal />
+  <app-config-modal />
 </div>
 
 

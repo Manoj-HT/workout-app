@@ -1,2 +1,10 @@
 /node_modules
 .angular/
+ngserve.log
+run-code.sh
+project-workflow/
+dist
+.gitignore
+weight.png
+android
+.vscode

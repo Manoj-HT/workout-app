@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, input, viewChild, OnInit } from '@angular/core';
 
 @Component({
-  selector: '[hex-box]',
+  selector: 'app-hex-box',
   imports: [CommonModule],
   templateUrl: './hex-box.html',
   styleUrl: './hex-box.scss'
 })
-export class HexBox {
+export class HexBox implements OnInit {
   svg = viewChild<ElementRef>('svg')
   polygon = viewChild<ElementRef>('polygon')
   hexBoxWrapper = viewChild<ElementRef>('hexBoxWrapper')
@@ -31,9 +31,6 @@ export class HexBox {
     const svg = this.svg()?.nativeElement as SVGElement
     svg.setAttribute("width", String(width))
     svg.setAttribute("height", String(height))
-    const resizeObserver = new ResizeObserver(() => {
-    this.initPolygonStyles(Number(width), Number(height))
-    });
     this.initPolygonStyles(Number(width), Number(height))
   }
 

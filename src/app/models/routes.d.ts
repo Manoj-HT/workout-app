@@ -7,4 +7,5 @@ type UrlPaths =
     | 'warm-up'
     | 'compound-exercises'
     | 'finishers'
+    | 'session-details'
     | '**'

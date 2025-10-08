@@ -1,12 +1,12 @@
-import { Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, output, signal, viewChild } from '@angular/core';
 import { ExerciseLogService } from '../services/exercise-log/exercise-log-service';
 import { ModalService } from '../modal/modal-service/modal-service';
 import { AnimationService } from '../services/animation-service/animation-service';
-import { HexBox } from "../ui-elements/hex-box/hex-box";
+
 
 @Component({
-  selector: 'config-header-component',
-  imports: [HexBox],
+  selector: 'app-config-header',
+  imports: [],
   templateUrl: './config-header-component.html',
   styleUrl: './config-header-component.scss'
 })
@@ -17,26 +17,36 @@ export class ConfigHeaderComponent {
   exerciseLogService = inject(ExerciseLogService)
   modalService = inject(ModalService)
   animationService = inject(AnimationService)
-  exerciseLogEffect = effect(() => this.updateAnimation)
+  exerciseLogEffect = effect(() => {
+    this.updateAnimation();
+  });
 
   displayModal() {
     this.modalService.openModal('configSelection')
   }
 
   updateAnimation() {
-    const count = this.exerciseLogService?.exerciseCount()?.count
-    const totalExercises = this.exerciseLogService.totalExercises
-    const pct = Math.round((count / totalExercises) * 100)
+    const count = this.exerciseLogService.exerciseCount()?.count;
+    if (count === undefined) return;
+    const totalExercises = this.exerciseLogService.totalExercises;
+    const pct = Math.round((count / totalExercises) * 100);
     this.animationService.animate({
       ref: this.sessionCompletepctLoader,
       duration: 2,
       pct,
-    })
+      autoReset: false
+    });
   }
 
   startSession() {
     this.startDate.update(() => {
-      this.sessionStart.emit()
+      this.sessionStart.emit();
+      this.exerciseLogService.sessionData.update((prev) => {
+        if (prev) {
+          return { ...prev, sessionStart: Date.now() }
+        }
+        return prev
+      });
       return new Date().toLocaleString('en-US', {
         weekday: "short",   // "Wed"
         day: "numeric",     // "1"
@@ -44,7 +54,7 @@ export class ConfigHeaderComponent {
         year: "numeric",    // "1990"
         hour: "2-digit",    // "06"
         minute: "2-digit",  // "30"
-        hour12: true        // 12-hour format with AM/PM
+        hour12: true        // 12-hour format with AM/PMif
       })
     })
   }

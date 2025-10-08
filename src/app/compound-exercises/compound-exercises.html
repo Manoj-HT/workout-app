@@ -1,2 +1,46 @@
-<p  >compound-exercises works!</p>
-<div></div>
+<div class="container">
+  <div class="configured-exercises-box">
+    @if (currentCompoundExercises().length === 0) {
+      <p class="placeholder">No exercises selected</p>
+    } @else {
+      @for (exercise of currentCompoundExercises(); track exercise.id) {
+        <div class="configured-exercise">
+          <div class="header">
+            <p><strong>{{ exercise.name }}</strong></p>
+            <p>Set: {{ currentSetIndex() + 1 }} / {{ exercise.sets }}</p>
+          </div>
+          <div class="details-grid">
+            <input type="number" [(ngModel)]="exercise.repsPerSet[currentSetIndex()]" placeholder="Reps" />
+            <input type="number" [(ngModel)]="exercise.weights[currentSetIndex()]" placeholder="Weight" />
+            <input type="number" [(ngModel)]="exercise.rpe" placeholder="RPE" />
+            <input type="number" [(ngModel)]="exercise.breathControl" placeholder="Breath Control" />
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+@if (currentCompoundExercises().length > 0) {
+  <div class="loader">
+    <div class="progress" #progressBar></div>
+  </div>
+
+  <div class="action-buttons">
+    <button (click)="completeExercise()">Complete</button>
+    @if (hasMoreSets()) {
+      <button (click)="nextSet()">Done</button>
+    }
+  </div>
+}
+
+  <div class="exercise-list-container">
+    <input type="text" placeholder="Search" class="search-input" (input)="onSearch($event)">
+    <ul class="exercise-list">
+      @for (exercise of filteredExercises(); track exercise.id) {
+        <li (click)="selectExercise(exercise)" (keydown.enter)="selectExercise(exercise)" tabindex="0">
+          {{ exercise.name }}
+        </li>
+      }
+    </ul>
+  </div>
+</div>

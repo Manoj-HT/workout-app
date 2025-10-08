@@ -13,27 +13,20 @@
     color: aqua;
     border-radius: 0.5rem;
 
-    scrollbar-width: thin;
-    scrollbar-color: aqua transparent;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 
     // Chrome, Edge, Safari
     &::-webkit-scrollbar {
-        width: 12px;
-        height: 12px; // also styles horizontal scrollbar
-    }
-
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: aqua;
-        border-radius: 0; // square edges
-        border: 2px solid transparent; // simulates margin
-        background-clip: content-box; // keeps aqua inside
+        display: none;
     }
 }
 
 body {
     background-color: black;
+}
+
+button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease-in-out;
 }
