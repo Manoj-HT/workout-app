@@ -1,3 +1,9 @@
+# 8
+
+1. session data bug fix
+2. add plugins: clipboard, statusbar for capacitor
+3. session details ui fix
+
 # 7
 
 1. push android folder

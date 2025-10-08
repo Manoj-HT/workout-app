@@ -5,6 +5,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ModalComponent } from './modal/modal-component/modal-component';
 import { filter } from 'rxjs';
 import { ExerciseLogService } from './services/exercise-log/exercise-log-service';
+import { StatusBar } from '@capacitor/status-bar';
 
 const imports = [ReactiveFormsModule, ConfigHeaderComponent, RouterOutlet, ModalComponent]
 @Component({
@@ -20,6 +21,7 @@ export class App {
   exerciseLogService = inject(ExerciseLogService)
 
   constructor() {
+    void this.setFullScreen()
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -38,7 +40,12 @@ export class App {
     });
   }
 
-  sessionStart(){
+  async setFullScreen() {
+    await StatusBar.hide()
+  }
+
+  sessionStart() {
     this.loadPage.update(() => true)
     this.router.navigate(['/warm-up']);
-  }}
+  }
+}

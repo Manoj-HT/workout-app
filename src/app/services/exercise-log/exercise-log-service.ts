@@ -8,7 +8,13 @@ export class ExerciseLogService {
   totalExercises = 22
   exerciseConfig = signal<ExerciseConfig | undefined>(undefined)
   configuredExercises = signal<ConfiguredExercise[]>([]);
-  sessionData = signal<SessionData | undefined>(undefined);
+  sessionData = signal<SessionData | undefined>({
+    sessionEnd: 0,
+    sessionStart: 0,
+    warmup: [],
+    finisher: [],
+    main: []
+  });
   sessionConfig = signal<{
     dayType: DayType,
     place: PlaceType,

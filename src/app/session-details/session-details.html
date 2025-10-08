@@ -1,6 +1,77 @@
-<pre>
-    {{sessionData()}}
-</pre>
-<code>
-    {{sessionData()}}
-</code>
+@if (sessionData()?.warmup?.length  || sessionData()?.finisher?.length  || sessionData()?.main?.length ) {
+<p>********</p>
+<h1>Session Started at: {{sessionData()?.sessionStart | date: 'long'}}</h1>
+<p>********</p>
+<p>---------</p>
+<p>********</p>
+<h2>Warmups:</h2>
+<p>********</p>
+@for(warmupEx of sessionData()?.warmup; track $index){
+<div>
+    <p>Name: {{warmupEx.name}}</p>
+    <p>Duration: {{warmupEx.time}} seconds</p>
+    <p>Started at: {{warmupEx.exerciseStartTime | date: 'HH:mm:ss'}}</p>
+    <p>Ended at: {{warmupEx.exerciseEndTime | date: 'HH:mm:ss'}}</p>
+    @if(!$last){
+    <p>---</p>
+    }
+</div>
+}
+<p>---------</p>
+<p>********</p>
+<h2>Compound:</h2>
+<p>********</p>
+@for(mainEx of sessionData()?.main; track $index){
+<div>
+    <p>Name: {{mainEx.name}}</p>
+    <p>Set rest time: {{mainEx.restBetweenSets}} seconds</p>
+    <p>Exercise rest time: {{mainEx.restAfterExercise}} seconds</p>
+    <p>Started at: {{mainEx.exerciseStartTime | date: 'HH:mm:ss'}}</p>
+    <p>Ended at: {{mainEx.exerciseEndTime | date: 'HH:mm:ss'}}</p>
+    <p>RPE: {{mainEx.rpe}}%</p>
+    <p>Eccentric control: {{mainEx.eccentricControl}}%</p>
+    <p>Breath control: {{mainEx.breathControl}}%</p>
+    <p>Set data:</p>
+    <p>~~~</p>
+    <ul>
+        @for(weight of mainEx.weights; track $index){
+        <li>Set {{$index + 1}}</li>
+        <li>Weight: {{weight}} kg</li>
+        <li>Reps: {{mainEx.repsPerSet[$index]}}</li>
+        @if(!$last){
+        <li>Set end: {{mainEx.setTimestamps[$index] | date: 'HH:mm:ss'}}</li>
+        <li>~~~</li>
+        }
+        }
+    </ul>
+    @if(!$last){
+    <p>---</p>
+    }
+</div>
+}
+<p>---------</p>
+<p>********</p>
+<h2>Finisher:</h2>
+<p>********</p>
+@for(finisher of sessionData()?.finisher; track $index){
+<div>
+    <p>Name: {{finisher.name}}</p>
+    <p>Duration: {{finisher.time}} seconds</p>
+    <p>Started at: {{finisher.exerciseStartTime | date: 'HH:mm:ss'}}</p>
+    <p>Ended at: {{finisher.exerciseEndTime | date: 'HH:mm:ss'}}</p>
+    @if(!$last){
+    <p>---</p>
+    }
+</div>
+}
+<p>---------</p>
+<p>********</p>
+<h1>Session ended at: {{sessionData()?.sessionEnd | date: 'long'}}</h1>
+<p>********</p>
+<button class="finish-button" (click)="copyAndReset()" >
+    Finish
+</button>
+}
+@if(!sessionData()?.warmup?.length  && !sessionData()?.finisher?.length  && !sessionData()?.main?.length){
+    <p class="no-data" >No data</p>
+}
