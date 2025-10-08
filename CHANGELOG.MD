@@ -1,3 +1,7 @@
+# 6
+
+1. update capacitor config
+
 # 5
 
 1. basic design complete
