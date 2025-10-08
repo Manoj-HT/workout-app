@@ -1,3 +1,7 @@
+# 7
+
+1. push android folder
+
 # 6
 
 1. update capacitor config

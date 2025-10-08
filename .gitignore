@@ -6,5 +6,4 @@ project-workflow/
 dist
 .gitignore
 weight.png
-android
 .vscode
