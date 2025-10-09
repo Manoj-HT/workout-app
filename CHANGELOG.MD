@@ -1,3 +1,7 @@
+# 9
+
+1. close on finish
+
 # 8
 
 1. session data bug fix

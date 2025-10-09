@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ExerciseLogService } from '../services/exercise-log/exercise-log-service';
 import { DatePipe } from '@angular/common';
 import { Clipboard } from '@capacitor/clipboard';
+import { App } from '@capacitor/app';
 @Component({
   selector: 'app-session-details',
   imports: [DatePipe],
@@ -125,10 +126,11 @@ export class SessionDetails {
     sessionEnd: 1696764300000
   });
   sessionData = this.exerciseLogService.sessionData
-  
-  async copyAndReset(){
-   await Clipboard.write({
-    string: JSON.stringify(this.sessionData())
-   })
+
+  async copyAndReset() {
+    await Clipboard.write({
+      string: JSON.stringify(this.sessionData())
+    })
+    App.exitApp()
   }
 }
