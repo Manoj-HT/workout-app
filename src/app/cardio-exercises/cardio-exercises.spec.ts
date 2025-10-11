@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardioExercises } from './cardio-exercises';
+import { provideZonelessChangeDetection } from '@angular/core';
+
+TestBed.configureTestingModule({
+  providers: [provideZonelessChangeDetection()]
+});
 
 describe('CardioExercises', () => {
   let component: CardioExercises;
@@ -13,7 +18,7 @@ describe('CardioExercises', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(CardioExercises);
-    component = fixture.componentInstance;
+    component = fixture.componentInstance; 
     fixture.detectChanges();
   });
 

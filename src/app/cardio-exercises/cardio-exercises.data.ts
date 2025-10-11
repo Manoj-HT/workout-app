@@ -1,5 +1,5 @@
 export const CARDIO_EXERCISES = [
-  { id: 1, name: 'Jumping Jacks', time: 6 },
+  { id: 1, name: 'Jumping Jacks', time: 60 },
   { id: 2, name: 'High Knees', time: 60 },
   { id: 3, name: 'Burpees', time: 120 },
   { id: 4, name: 'Mountain Climbers', time: 60 },

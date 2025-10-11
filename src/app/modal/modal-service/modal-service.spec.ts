@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ModalService } from './modal-service';
+import { provideZonelessChangeDetection } from '@angular/core';
+
+TestBed.configureTestingModule({
+  providers: [provideZonelessChangeDetection()]
+});
 
 describe('ModalService', () => {
   let service: ModalService;

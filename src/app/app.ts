@@ -5,7 +5,8 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ModalComponent } from './modal/modal-component/modal-component';
 import { filter } from 'rxjs';
 import { ExerciseLogService } from './services/exercise-log/exercise-log-service';
-import { StatusBar } from '@capacitor/status-bar';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 const imports = [ReactiveFormsModule, ConfigHeaderComponent, RouterOutlet, ModalComponent]
 @Component({
@@ -24,24 +25,38 @@ export class App {
     void this.setFullScreen()
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      let exerciseSection: ExerciseSectionType = 'Exercise type';
-      if (event.urlAfterRedirects.includes('/warm-up')) {
-        exerciseSection = 'Warm up';
-      } else if (event.urlAfterRedirects.includes('/compound-exercises')) {
-        exerciseSection = 'Main';
-      } else if (event.urlAfterRedirects.includes('/finishers')) {
-        exerciseSection = 'Finisher';
+    ).subscribe({
+      next: (event: NavigationEnd) => {
+        if (event.urlAfterRedirects === '/') {
+          this.loadPage.update(() => false);
+        }
+        let exerciseSection: ExerciseSectionType = 'Exercise type';
+        if (event.urlAfterRedirects.includes('/warm-up')) {
+          exerciseSection = 'Warm up';
+        } else if (event.urlAfterRedirects.includes('/compound-exercises')) {
+          exerciseSection = 'Main';
+        } else if (event.urlAfterRedirects.includes('/finishers')) {
+          exerciseSection = 'Finisher';
+        }
+        this.exerciseLogService.sessionConfig.update(config => ({
+          ...config,
+          exerciseSection: exerciseSection
+        }));
       }
-      this.exerciseLogService.sessionConfig.update(config => ({
-        ...config,
-        exerciseSection: exerciseSection
-      }));
     });
   }
 
   async setFullScreen() {
-    await StatusBar.hide()
+    if (Capacitor.isNativePlatform()) {
+      try {
+        await StatusBar.setStyle({ style: Style.Dark });
+        await StatusBar.hide();
+      } catch (err) {
+        console.warn('StatusBar plugin not available:', err);
+      }
+    } else {
+      console.log('Running on web — skipping StatusBar adjustments');
+    }
   }
 
   sessionStart() {

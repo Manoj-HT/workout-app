@@ -1,73 +1,109 @@
-@if(modal().type){
-<div class="bg-blur" (click)="closeModal()" (keydown.enter)="closeModal()" tabindex="0"></div>
-<div [class]="`modal ${modal().anim}`">
+@if (modal().type) {
+  <div class="bg-blur" (click)="closeModal()" (keydown.enter)="closeModal()" tabindex="0"></div>
+  <div [class]="`modal ${modal().anim}`">
     @switch (modal().type) {
-    @case ('dayType') {
-    <ul (click)="selectOption($event, 'dayType')" (keydown.enter)="selectOption($event, 'dayType')" tabindex="0">
-        <li>Full body</li>
-        <li>Push day</li>
-        <li>Pull day</li>
-        <li>Leg + core day</li>
-        <li (click)="$event.stopPropagation();closeModal()" (keydown.enter)="$event.stopPropagation();closeModal()"
-            tabindex="0">Cancel</li>
-    </ul>
+      @case ('dayType') {
+        <ul
+          (click)="selectOption($event, 'dayType')"
+          (keydown.enter)="selectOption($event, 'dayType')"
+          tabindex="0"
+        >
+          <li>Full body</li>
+          <li>Push day</li>
+          <li>Pull day</li>
+          <li>Leg + core day</li>
+          <li
+            (click)="$event.stopPropagation(); closeModal()"
+            (keydown.enter)="$event.stopPropagation(); closeModal()"
+            tabindex="0"
+          >
+            Cancel
+          </li>
+        </ul>
+      }
+      @case ('place') {
+        <ul
+          class="place"
+          (click)="selectOption($event, 'place')"
+          (keydown.enter)="selectOption($event, 'place')"
+          tabindex="0"
+        >
+          <li>Home</li>
+          <li>Gym</li>
+          <li
+            (click)="$event.stopPropagation(); closeModal()"
+            (keydown.enter)="$event.stopPropagation(); closeModal()"
+            tabindex="0"
+          >
+            Cancel
+          </li>
+        </ul>
+      }
+      @case ('exerciseSelector') {
+        <p class="title">{{ modalData()?.name }}</p>
+        <div class="config-inputs" [formGroup]="exerciseConfigForm">
+          <input type="text" placeholder="Rest time" formControlName="rest" />
+          <input type="text" placeholder="Complete time" formControlName="complete" />
+          <input type="text" placeholder="Total sets" formControlName="sets" />
+          <input type="text" placeholder="Weights/Time" formControlName="weights" />
+          <input type="text" placeholder="Reps" formControlName="reps" />
+        </div>
+        <div class="exercise-configuration">
+          <button (click)="closeModal()" class="cancel">Cancel</button>
+          <button (click)="done()" class="done">Done</button>
+        </div>
+      }
+      @case ('exerciseType') {
+        <ul
+          (click)="selectOption($event, 'exerciseType')"
+          (keydown.enter)="selectOption($event, 'exerciseType')"
+          tabindex="0"
+        >
+          <li>Warm up</li>
+          <li>Main</li>
+          <li>Finisher</li>
+          <li
+            (click)="$event.stopPropagation(); closeModal()"
+            (keydown.enter)="$event.stopPropagation(); closeModal()"
+            tabindex="0"
+          >
+            Cancel
+          </li>
+        </ul>
+      }
+      @case ('configSelection') {
+        <ul>
+          <li (click)="openModal('dayType')" (keydown.enter)="openModal('dayType')" tabindex="0">
+            {{ sessionConfig().dayType !== 'Select day' ? 'Day: ' : '' }}
+            {{ sessionConfig().dayType }}
+          </li>
+          <li (click)="openModal('place')" (keydown.enter)="openModal('place')" tabindex="0">
+            {{ sessionConfig().place !== 'Select place' ? 'Place: ' : '' }}
+            {{ sessionConfig().place }}
+          </li>
+          <li
+            (click)="openModal('exerciseType')"
+            (keydown.enter)="openModal('exerciseType')"
+            tabindex="0"
+          >
+            {{ sessionConfig().exerciseSection !== 'Exercise type' ? 'Type: ' : '' }}
+            {{ sessionConfig().exerciseSection }}
+          </li>
+          <li
+            (click)="routeToSessionReport()"
+            (keydown.enter)="routeToSessionReport()"
+            tabindex="0"
+          >
+            Session report
+          </li>
+          <li (click)="closeModal()" (keydown.enter)="closeModal()" tabindex="0">Cancel</li>
+        </ul>
+      }
     }
-    @case ('place') {
-    <ul class="place" (click)="selectOption($event, 'place')" (keydown.enter)="selectOption($event, 'place')"
-        tabindex="0">
-        <li>Home</li>
-        <li>Gym</li>
-        <li (click)="$event.stopPropagation();closeModal()" (keydown.enter)="$event.stopPropagation();closeModal()"
-            tabindex="0">Cancel</li>
-    </ul>
-
-    }
-    @case ('exerciseSelector') {
-    <p class="title">{{ modalData()?.name }}</p>
-    <div class="config-inputs" [formGroup]="exerciseConfigForm">
-        <input type="text" placeholder="Rest time" formControlName="rest">
-        <input type="text" placeholder="Complete time" formControlName="complete">
-        <input type="text" placeholder="Total sets" formControlName="sets">
-        <input type="text" placeholder="Weights/Time" formControlName="weights">
-        <input type="text" placeholder="Reps" formControlName="reps">
-    </div>
-    <div class="exercise-configuration">
-        <button (click)="closeModal()" class="cancel">Cancel</button>
-        <button (click)="done()" class="done">Done</button>
-    </div>
-    }
-    @case ('exerciseType') {
-    <ul (click)="selectOption($event, 'exerciseType')" (keydown.enter)="selectOption($event, 'exerciseType')"
-        tabindex="0">
-        <li>Warm up</li>
-        <li>Main</li>
-        <li>Finisher</li>
-        <li (click)="$event.stopPropagation();closeModal()" (keydown.enter)="$event.stopPropagation();closeModal()"
-            tabindex="0">Cancel</li>
-    </ul>
-    }
-    @case ('configSelection') {
-    <ul>
-        <li (click)="openModal('dayType')" (keydown.enter)="openModal('dayType')" tabindex="0">
-            {{sessionConfig().dayType !== 'Select day' ? 'Day: ' : ''}}
-            {{sessionConfig().dayType}}
-        </li>
-        <li (click)="openModal('place')" (keydown.enter)="openModal('place')" tabindex="0">
-            {{sessionConfig().place !== 'Select place' ? 'Place: ' : ''}}
-            {{sessionConfig().place}}
-        </li>
-        <li (click)="openModal('exerciseType')" (keydown.enter)="openModal('exerciseType')" tabindex="0">
-            {{sessionConfig().exerciseSection !== 'Exercise type' ? 'Type: ' : ''}}
-            {{sessionConfig().exerciseSection}}
-        </li>
-        <li (click)="closeModal()" (keydown.enter)="closeModal()" tabindex="0">Cancel</li>
-    </ul>
-    }
-    }
-</div>
+  </div>
 }
 @if (modal().type === 'configSelection') {
-<div class="end-session-wrapper">
-    <button class="end-session-button" (click)="endSession()">End Session</button>
-</div>
+  <div class="end-session-wrapper">
+    <button class="end-session-button" (click)="endSession()">End session</button>
+  </div>
 }

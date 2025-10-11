@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HexBox } from './hex-box';
+import { provideZonelessChangeDetection } from '@angular/core';
+
+TestBed.configureTestingModule({
+  providers: [provideZonelessChangeDetection()]
+});
 
 describe('HexBox', () => {
   let component: HexBox;

@@ -3,6 +3,7 @@
   @if (selectedExercise()) {
     <div class="loading-bar">
       <div class="progress" #loadingBar></div>
+      <p>{{timer()}}</p>
     </div>
     <button class="start-exercise-button" (click)="startOrStopExercise()">
       @if (exerciseInProgress()) {

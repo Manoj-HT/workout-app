@@ -91,4 +91,6 @@ type SessionData = {
   finisher?: FinisherExerciseLog[];
   main?: LoggedCompoundExercise[];
   sessionEnd: number;
+  place: PlaceType;
+  day: DayType;
 }

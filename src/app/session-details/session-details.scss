@@ -7,3 +7,30 @@
     width: 100%;
     margin-top: 10px;
 }
+
+.session-details{
+    border: 2px solid;
+    padding: 10px;
+    p{
+        margin-top: 10px;
+    }
+    margin-bottom: 10px;
+}
+.exercise-details{
+    border: 2px solid;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    h2, .exercise-section{
+        border-radius: 0;
+        border-bottom: 2px solid;
+    }
+    h2{
+        padding: 0 10px;
+    }
+    .exercise-section{
+        padding: 10px;
+        &:last-child{
+            border: none;
+        }
+    }
+}

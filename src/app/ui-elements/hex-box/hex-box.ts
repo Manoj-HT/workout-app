@@ -26,7 +26,6 @@ export class HexBox implements OnInit {
     const wrapper = this.hexBoxWrapper()?.nativeElement as HTMLDivElement
     const parent = wrapper.parentElement as HTMLElement
     const config = parent.ownerDocument.defaultView?.getComputedStyle(parent)
-    console.log(config?.width.replace("px", ""))
     const [width = 1, height = 1] = [config?.width.replace("px", ""), config?.height.replace("px", "")]
     const svg = this.svg()?.nativeElement as SVGElement
     svg.setAttribute("width", String(width))

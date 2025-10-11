@@ -35,6 +35,7 @@
     "@capacitor/clipboard": "^7.0.2",
     "@capacitor/core": "^7.4.3",
     "@capacitor/status-bar": "^7.0.3",
+    "prettier": "^3.6.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

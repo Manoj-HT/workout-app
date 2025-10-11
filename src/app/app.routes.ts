@@ -22,6 +22,10 @@ const routes: CustomRoute[] = [
         component: SessionDetails
     },
     {
+        path: 'session-report',
+        component: SessionDetails
+    },
+    {
         path: '**',
         redirectTo: '',
         pathMatch: "full"

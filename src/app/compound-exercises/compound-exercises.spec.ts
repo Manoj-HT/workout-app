@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompoundExercises } from './compound-exercises';
+import { provideZonelessChangeDetection } from '@angular/core';
+
+TestBed.configureTestingModule({
+  providers: [provideZonelessChangeDetection()]
+});
 
 describe('CompoundExercises', () => {
   let component: CompoundExercises;

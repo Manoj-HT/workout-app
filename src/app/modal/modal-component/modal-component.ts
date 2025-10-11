@@ -57,7 +57,6 @@ export class ModalComponent implements OnInit {
           restBetweenSets: Number(formValues.rest),
           restAfterExercise: Number(formValues.complete)
         };
-        console.log(newExercise)
         this.modalService.data.update(() => newExercise);
         this.closeModal();
       }
@@ -79,11 +78,31 @@ export class ModalComponent implements OnInit {
         case 'dayType': newVal = {
           ...prev,
           dayType: option as DayType
-        }; break;
+        };
+          this.exerciselogService.sessionData.update((prev) => {
+            if (prev) {
+              return {
+                ...prev,
+                day: option as DayType
+              }
+            }
+            return prev
+          })
+          break;
         case 'place': newVal = {
           ...prev,
           place: option as PlaceType
-        }; break;
+        };
+          this.exerciselogService.sessionData.update((prev) => {
+            if (prev) {
+              return {
+                ...prev,
+                place: option as PlaceType
+              }
+            }
+            return prev
+          })
+          break;
         case 'exerciseType': newVal = {
           ...prev,
           exerciseSection: option as ExerciseSectionType
@@ -120,5 +139,10 @@ export class ModalComponent implements OnInit {
     })
     this.router.navigate(['/session-details'])
     this.closeModal();
+  }
+
+  routeToSessionReport(){
+    this.router.navigate(['/session-report'])
+    this.closeModal()
   }
 }

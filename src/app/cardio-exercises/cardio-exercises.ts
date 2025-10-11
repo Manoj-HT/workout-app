@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-cardio-exercises',
   imports: [],
   templateUrl: './cardio-exercises.html',
-  styleUrl: './cardio-exercises.scss'
+  styleUrl: './cardio-exercises.scss',
 })
 export class CardioExercises {
   exerciselogService = inject(ExerciseLogService);
@@ -22,9 +22,7 @@ export class CardioExercises {
 
   filteredExercises = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    return this.exercises.filter(exercise =>
-      exercise.name.toLowerCase().includes(term)
-    );
+    return this.exercises.filter((exercise) => exercise.name.toLowerCase().includes(term));
   });
 
   title = computed(() => {
@@ -42,16 +40,17 @@ export class CardioExercises {
   toggleExercise(exercise: CardioExercise) {
     this.resetLoadingBar();
     this.exerciseInProgress.set(false);
-    this.selectedExercise.update(currentSelected => {
+    this.selectedExercise.update((currentSelected) => {
       if (currentSelected?.id === exercise.id) {
         return undefined; // Deselect if already selected
       } else {
         return exercise; // Select the new exercise
       }
     });
-    this.exerciselogService.sessionConfig.update(config => ({
+    this.timer.set(exercise.time);
+    this.exerciselogService.sessionConfig.update((config) => ({
       ...config,
-      exercises: this.selectedExercise() ? [this.selectedExercise() as CardioExercise] : []
+      exercises: this.selectedExercise() ? [this.selectedExercise() as CardioExercise] : [],
     }));
   }
 
@@ -66,7 +65,7 @@ export class CardioExercises {
         const newSet: ExerciseLog = {
           title: exercise.name,
           sets: 1, // for cardio, it's just one "set"
-          time: exercise.time
+          time: exercise.time,
         };
         this.exerciselogService.updateCountTo([newSet]);
 
@@ -78,12 +77,18 @@ export class CardioExercises {
       }
       this.selectedExercise.set(undefined);
       this.exerciseInProgress.set(false);
+      this.timer.set(0);
     } else {
       // Start
       this.exerciseInProgress.set(true);
       const exercise = this.selectedExercise();
+
       if (exercise) {
-        const exerciseLog: WarmupExerciseLog | FinisherExerciseLog = { ...exercise, exerciseStartTime: Date.now() };
+        this.initiateTimer();
+        const exerciseLog: WarmupExerciseLog | FinisherExerciseLog = {
+          ...exercise,
+          exerciseStartTime: Date.now(),
+        };
 
         if (currentRoute.includes('/warm-up')) {
           this.exerciselogService.addWarmupExercise(exerciseLog as WarmupExerciseLog);
@@ -94,10 +99,23 @@ export class CardioExercises {
         this.animationService.animate({
           ref: this.loadingBar,
           duration: exercise.time,
-          pct: 100
+          pct: 100,
         });
       }
     }
+  }
+
+  timer = signal(0);
+  initiateTimer() {
+    const interval = setInterval(() => {
+      this.timer.update((prev) => {
+        if (prev == 0) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev - 1;
+      });
+    }, 1000);
   }
 
   resetLoadingBar() {

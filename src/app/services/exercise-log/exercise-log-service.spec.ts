@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ExerciseLogService } from './exercise-log-service';
+import { provideZonelessChangeDetection } from '@angular/core';
+
+TestBed.configureTestingModule({
+  providers: [provideZonelessChangeDetection()]
+});
 
 describe('ExerciseLogService', () => {
   let service: ExerciseLogService;

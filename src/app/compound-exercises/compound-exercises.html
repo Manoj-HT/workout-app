@@ -10,10 +10,10 @@
             <p>Set: {{ currentSetIndex() + 1 }} / {{ exercise.sets }}</p>
           </div>
           <div class="details-grid">
-            <input type="number" [(ngModel)]="exercise.repsPerSet[currentSetIndex()]" placeholder="Reps" />
-            <input type="number" [(ngModel)]="exercise.weights[currentSetIndex()]" placeholder="Weight" />
-            <input type="number" [(ngModel)]="exercise.rpe" placeholder="RPE" />
-            <input type="number" [(ngModel)]="exercise.breathControl" placeholder="Breath Control" />
+            <label for=""><span>Reps</span>:<input type="number" [(ngModel)]="exercise.repsPerSet[currentSetIndex()]" placeholder="Reps" /></label>
+            <label for=""><span>Weight</span>:<input type="number" [(ngModel)]="exercise.weights[currentSetIndex()]" placeholder="Weight" /></label>
+            <label for=""><span>RPE</span>:<input type="number" [(ngModel)]="exercise.rpe" placeholder="RPE" /></label>
+            <label for=""><span>EC</span>:<input type="number" [(ngModel)]="exercise.breathControl" placeholder="Breath Control" /></label>
           </div>
         </div>
       }
@@ -23,6 +23,7 @@
 @if (currentCompoundExercises().length > 0) {
   <div class="loader">
     <div class="progress" #progressBar></div>
+    <p>{{timer()}}</p>
   </div>
 
   <div class="action-buttons">
