@@ -1,3 +1,7 @@
+# 13
+
+1. set up git hub actions for publishing build files into seperate branch
+
 # 12
 
 1. added build with name in angular json
