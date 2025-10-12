@@ -30,11 +30,17 @@ jobs:
           echo "Deploying workout-logger folder to micro-fe-build branch..."
           git config user.name "Manoj-HT"
           git config user.email "manulogan101@gmail.com"
-          git fetch origin
+
+          # 1. Checkout orphan branch (temporary)
           git checkout --orphan micro-fe-build-tmp
-          git rm -rf .
-          cp -r workout-logger .
-          git add .
+
+          # 2. Remove all tracked files but keep untracked (like workout-logger/)
+          git rm -rf --cached .
+
+          # 3. Add the whole folder
+          git add workout-logger
+
+          # 4. Commit & push
           git commit -m "Deploy build $(date)"
           git branch -M micro-fe-build
           git push origin micro-fe-build --force
