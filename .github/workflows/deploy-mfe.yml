@@ -25,15 +25,15 @@ jobs:
       - name: 🏗️ Build Angular app
         run: npm run build --if-present
 
-      - name: 🚀 Deploy build folder to branch
+      - name: 🚀 Deploy workout-logger folder to micro-fe-build branch
         run: |
-          echo "Deploying build folder to micro-fe-build branch..."
+          echo "Deploying workout-logger folder to micro-fe-build branch..."
           git config user.name "Manoj-HT"
           git config user.email "manulogan101@gmail.com"
           git fetch origin
           git checkout --orphan micro-fe-build-tmp
           git rm -rf .
-          cp -r workout-logger/* .
+          cp -r workout-logger .
           git add .
           git commit -m "Deploy build $(date)"
           git branch -M micro-fe-build
