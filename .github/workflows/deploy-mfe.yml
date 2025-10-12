@@ -1,10 +1,9 @@
-name: 🚀 Deploy Workout Logger Micro Frontend Build
+name: 🚀 Deploy Micro Frontend Build
 
 on:
   push:
-    branches:
-      - main   # Run this action whenever you push to main
-  workflow_dispatch:  # Allow manual trigger from GitHub Actions tab
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -31,16 +30,19 @@ jobs:
           git config user.name "Manoj-HT"
           git config user.email "manulogan101@gmail.com"
 
-          # 1. Checkout orphan branch (temporary)
+          # Ensure we are in the repo root
+          cd $GITHUB_WORKSPACE
+
+          # Checkout a temporary orphan branch
           git checkout --orphan micro-fe-build-tmp
 
-          # 2. Remove all tracked files but keep untracked (like workout-logger/)
+          # Remove all tracked files, keep untracked (build folder)
           git rm -rf --cached .
 
-          # 3. Add the whole folder
+          # Add the entire workout-logger folder
           git add workout-logger
 
-          # 4. Commit & push
+          # Commit & push
           git commit -m "Deploy build $(date)"
           git branch -M micro-fe-build
           git push origin micro-fe-build --force
